@@ -120,6 +120,6 @@ fun File.deleteAndLog() {
     if (!exists()) return
     println("Deleting $absolutePath")
     val result = delete()
-    println("[$result]".toUpperCase())
+    println("[$result]".uppercase())
     if (!result) deleteOnExit()
 }
