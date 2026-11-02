@@ -1,0 +1,63 @@
+# Builds the fonts and runs the QA checks (Font Bakery) on pull requests.
+name: Test
+
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - "sources/**"
+      - "scripts/**"
+      - pyproject.toml
+      - uv.lock
+      - .python-version
+      - .github/workflows/test.yml
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          enable-cache: true
+
+      - name: Build fonts
+        run: |
+          uv run gftools builder sources/config.yaml
+          uv run python scripts/generate_variable_webfonts.py
+
+      # Show the report instead of failing: the shipped fonts have some
+      # long-standing Font Bakery FAILs.
+      - name: Run Font Bakery
+        continue-on-error: true
+        run: |
+          mkdir -p fontbakery
+          uv run fontbakery check-googlefonts fonts/variable/*.ttf \
+            --ghmarkdown fontbakery/variable.md --full-lists
+
+      - name: Add Font Bakery report to the summary
+        if: always()
+        run: cat fontbakery/variable.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload Font Bakery report
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: fontbakery
+          path: fontbakery/
+
+      - name: Upload fonts
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: fonts
+          path: fonts/
