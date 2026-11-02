@@ -5,3 +5,8 @@ lib
 source/JetBrainsMono.backup
 env
 .DS_Store
+.venv
+# gftools builder output
+sources/instance_ufos
+sources/build.ninja
+sources/.ninja_log
