@@ -68,7 +68,9 @@ fun generateNoLigaturesFont(file: File, doc: Document) {
 
     val ttxFile = File(dir, ttx)
     doc.saveAs(ttxFile)
-    "ttx $ttx".runCommand(dir)
+    // Keep the source font's 'modified' timestamp (which honours
+    // SOURCE_DATE_EPOCH), instead of the .ttx file's modification time.
+    "ttx --no-recalc-timestamp $ttx".runCommand(dir)
     ttxFile.deleteAndLog()
 }
 
