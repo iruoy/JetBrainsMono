@@ -31,6 +31,11 @@ jobs:
         with:
           enable-cache: true
 
+      # pygit2 (used by gftools) has no Python 3.15 wheels yet, so it's built
+      # from source against the system libgit2.
+      - name: Install libgit2
+        run: sudo apt-get update && sudo apt-get install -y libgit2-dev
+
       - name: Build fonts
         run: |
           uv run gftools builder sources/config.yaml
@@ -47,7 +52,7 @@ jobs:
 
       - name: Add Font Bakery report to the summary
         if: always()
-        run: cat fontbakery/variable.md >> "$GITHUB_STEP_SUMMARY"
+        run: if [ -f fontbakery/variable.md ]; then cat fontbakery/variable.md >> "$GITHUB_STEP_SUMMARY"; fi
 
       - name: Upload Font Bakery report
         if: always()
