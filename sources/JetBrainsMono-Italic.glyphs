@@ -1901,6 +1901,7 @@ tag = cv12;
 {
 automatic = 1;
 code = "sub cent by cent.cv14;
+sub dollar by dollar.cv14;
 sub dollar_greater.liga by dollar_greater.liga.cv14;
 sub less_dollar.liga by less_dollar.liga.cv14;
 sub less_dollar_greater.liga by less_dollar_greater.liga.cv14;
