@@ -72055,6 +72055,25 @@ metricWidth = space;
 unicode = 160;
 },
 {
+glyphname = narrownbspace;
+layers = (
+{
+layerId = "EDF5EB54-295C-4C90-9A2F-67CD82979CFF";
+width = 600;
+},
+{
+layerId = "CCC0BD40-BA8C-414E-B576-CF0B94E6C996";
+width = 600;
+},
+{
+layerId = "9ADF6715-3D0F-493D-8567-18A6FBCFC567";
+width = 600;
+}
+);
+metricWidth = space;
+unicode = 8239;
+},
+{
 glyphname = EMquad;
 layers = (
 {
@@ -117192,6 +117211,39 @@ width = 600;
 unicode = 8729;
 },
 {
+glyphname = dotmath;
+layers = (
+{
+layerId = "9ADF6715-3D0F-493D-8567-18A6FBCFC567";
+shapes = (
+{
+ref = periodcentered;
+}
+);
+width = 600;
+},
+{
+layerId = "CCC0BD40-BA8C-414E-B576-CF0B94E6C996";
+shapes = (
+{
+ref = periodcentered;
+}
+);
+width = 600;
+},
+{
+layerId = "EDF5EB54-295C-4C90-9A2F-67CD82979CFF";
+shapes = (
+{
+ref = periodcentered;
+}
+);
+width = 600;
+}
+);
+unicode = 8901;
+},
+{
 glyphname = colonequals;
 layers = (
 {
@@ -146375,6 +146427,48 @@ width = 600;
 }
 );
 unicode = 9633;
+},
+{
+glyphname = whiteInBlackSquare;
+layers = (
+{
+layerId = "EDF5EB54-295C-4C90-9A2F-67CD82979CFF";
+shapes = (
+{
+ref = whiteSquare;
+},
+{
+ref = blackSmallSquare;
+}
+);
+width = 600;
+},
+{
+layerId = "CCC0BD40-BA8C-414E-B576-CF0B94E6C996";
+shapes = (
+{
+ref = whiteSquare;
+},
+{
+ref = blackSmallSquare;
+}
+);
+width = 600;
+},
+{
+layerId = "9ADF6715-3D0F-493D-8567-18A6FBCFC567";
+shapes = (
+{
+ref = whiteSquare;
+},
+{
+ref = blackSmallSquare;
+}
+);
+width = 600;
+}
+);
+unicode = 9635;
 },
 {
 glyphname = blackSmallSquare;
