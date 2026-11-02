@@ -58,8 +58,10 @@ fun generateNoLigaturesFont(file: File, doc: Document) {
 
     val xPath = XPathFactory.newInstance().newXPath()
     val nameRecords = (xPath.evaluate("/ttFont/name/namerecord", doc, XPathConstants.NODESET) as NodeList).asList()
+    // Only rename the family and font names, not the copyright, trademark or URLs
+    val familyNameIds = setOf("1", "3", "4", "6", "16", "17", "25")
     nameRecords.forEach {
-        if (!it.textContent.contains("trademark")) {
+        if (it.attributes.getNamedItem("nameID")?.nodeValue in familyNameIds) {
             it.textContent = it.textContent
                 .replace("JetBrains Mono", "JetBrains Mono NL")
                 .replace("JetBrainsMono", "JetBrainsMonoNL")
