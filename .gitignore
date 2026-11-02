@@ -1,13 +1,26 @@
+# IDE and OS files
 .idea/workspace.xml
 JetBrainsMono.iml
 out
 lib
-source/JetBrainsMono.backup
-env
 .DS_Store
+
+# Glyphs backups
+sources/*.backup
+
+# Python environment
 .venv
+
 # gftools builder output
 sources/instance_ufos
 sources/build.ninja
 sources/.ninja_log
+
+# Generated fonts that aren't kept in the repo: the NL fonts ship in the
+# release download, and the variable .woff2 files are also in fonts/webfonts
+fonts/ttf/JetBrainsMonoNL-*.ttf
+fonts/variable/*.woff2
+
+# NL build and Font Bakery output
 GenerateNLVersion.jar
+fontbakery/
