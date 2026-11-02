@@ -5,7 +5,7 @@
 
 JetBrains Mono is available as a standalone download, and is also bundled in all JetBrains IDEs. Discover more font features & design on its [web page](https://jetbrains.com/mono/). 
 
-Default version of JetBrains Mono comes with OpenType features and ligatures (which can always be toggled on & off in the settings). If your IDE doesn’t support OpenType, use a special version of the font — [JetBrains Mono NL](https://github.com/JetBrains/JetBrainsMono/tree/master/fonts/ttf), which doesn’t include any ligatures.
+Default version of JetBrains Mono comes with OpenType features and ligatures (which can always be toggled on & off in the settings). If your IDE doesn’t support OpenType, use a special version of the font — JetBrains Mono NL, which doesn’t include any ligatures. It’s included in the [release download](https://github.com/JetBrains/JetBrainsMono/releases/latest).
 
 # **Installation**
 
@@ -81,7 +81,7 @@ A ligature is a character consisting of two or more joined symbols. Traditionall
 
 ![Alt text](images/ligatures-2@2x.gif)
 
-> **Note** if your IDE doesn’t support OpenType features and ligatures, use [JetBrains Mono NL](https://github.com/JetBrains/JetBrainsMono/tree/master/fonts/ttf) instead.
+> **Note** if your IDE doesn’t support OpenType features and ligatures, use [JetBrains Mono NL](https://github.com/JetBrains/JetBrainsMono/releases/latest) instead.
 
 ## OpenType features
 Starting from v2.304, JetBrains Mono has added support for alternate characters.
@@ -98,16 +98,34 @@ You can find full JetBrains Mono character set on our [wiki page](https://github
 
 ## Building from source files
 
-> **Note** To build from source, you'd need Python 3.9.5 or higher (install instructions for Python [available here](https://wiki.python.org/moin/BeginnersGuide/Download)).
+The source files can be found in the *sources* folder. To open them you will need [Glyphs](https://glyphsapp.com).
 
-The source files can be found in the *"Source"* folder. To open them you will need Glyphs app.\
-To build the `.ttf`, `.otf`, `woff2` & variable `.ttf` you will need to:
-- Install **gftools** `pip install gftools`
-- Install **fonttools[woff]** `pip install fonttools[woff]`
-- Navigate to **JetBrainsMono** folder in Terminal app.
-- Type `gftools builder sources/config.yaml` in Terminal and run it.
-- Type `python scripts/generate_variable_webfonts.py` in Terminal and run it to generate variable `woff2` files.
-- After the scripts are complete, the files can be found in *fonts* folder.
+The build uses [uv](https://docs.astral.sh/uv/) to manage Python and the build tools, which are pinned in `uv.lock`. [Install uv](https://docs.astral.sh/uv/getting-started/installation/), for example with Homebrew (`brew install uv`). Building Font Bakery's dependencies on Python 3.15 also needs [Rust](https://rustup.rs).
+
+In the **JetBrainsMono** folder, run:
+
+```bash
+# Build the .ttf, .otf, static .woff2 and variable .ttf fonts
+uv run gftools builder sources/config.yaml
+
+# Build the variable .woff2 fonts
+uv run python scripts/generate_variable_webfonts.py
+```
+
+The first run installs the right Python version and the build tools into `.venv`. The fonts are written to the *fonts* folder.
+
+To build the JetBrains Mono NL fonts (without ligatures) from the `.ttf` files in *fonts/ttf*, you also need [Kotlin](https://kotlinlang.org) (`brew install kotlin`):
+
+```bash
+kotlinc scripts/GenerateNLVersion.kt -include-runtime -d GenerateNLVersion.jar
+uv run kotlin GenerateNLVersion.jar
+```
+
+To check the fonts with [Font Bakery](https://github.com/fonttools/fontbakery):
+
+```bash
+uv run fontbakery check-googlefonts fonts/variable/*.ttf
+```
 
 ## License
 
