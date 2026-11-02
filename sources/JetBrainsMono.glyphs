@@ -1569,18 +1569,19 @@ sub plus by plussuperior;
 tag = sups;
 },
 {
-code = "lookup FRAC {
-	sub slash by fraction;
+code = "# Only digits around a slash or fraction slash become a fraction, so frac
+# can be left on everywhere (e.g. in code editors).
+lookup FRAC {
+	sub [zero one two three four five six seven eight nine] [slash fraction]' [zero one two three four five six seven eight nine] by fraction;
 } FRAC;
 
-lookup UP {
-	sub [zero one two three four five six seven eight nine] by [zero.numr one.numr two.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr];
-} UP;
+lookup NUMR {
+	rsub [zero one two three four five six seven eight nine]' [fraction zero.numr one.numr two.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr] by [zero.numr one.numr two.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr];
+} NUMR;
 
-lookup DOWN {
-	sub fraction [zero.numr one.numr two.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr]' by [zero.dnom one.dnom two.dnom three.dnom four.dnom five.dnom six.dnom seven.dnom eight.dnom nine.dnom];
-	sub [zero.dnom one.dnom two.dnom three.dnom four.dnom five.dnom six.dnom seven.dnom eight.dnom nine.dnom] [zero.numr one.numr two.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr]' by [zero.dnom one.dnom two.dnom three.dnom four.dnom five.dnom six.dnom seven.dnom eight.dnom nine.dnom];
-} DOWN;";
+lookup DNOM {
+	sub [fraction zero.dnom one.dnom two.dnom three.dnom four.dnom five.dnom six.dnom seven.dnom eight.dnom nine.dnom] [zero one two three four five six seven eight nine]' by [zero.dnom one.dnom two.dnom three.dnom four.dnom five.dnom six.dnom seven.dnom eight.dnom nine.dnom];
+} DNOM;";
 tag = frac;
 },
 {

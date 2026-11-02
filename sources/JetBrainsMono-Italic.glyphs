@@ -1570,11 +1570,19 @@ sub plus by plussuperior;
 tag = sups;
 },
 {
-automatic = 1;
-code = "sub one slash four by onequarter;
-sub one slash two by onehalf;
-sub three slash four by threequarters;
-";
+code = "# Only digits around a slash or fraction slash become a fraction, so frac
+# can be left on everywhere (e.g. in code editors).
+lookup FRAC {
+	sub [zero one two three four five six seven eight nine] [slash fraction]' [zero one two three four five six seven eight nine] by fraction;
+} FRAC;
+
+lookup NUMR {
+	rsub [zero one two three four five six seven eight nine]' [fraction zero.numr one.numr two.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr] by [zero.numr one.numr two.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr];
+} NUMR;
+
+lookup DNOM {
+	sub [fraction zero.dnom one.dnom two.dnom three.dnom four.dnom five.dnom six.dnom seven.dnom eight.dnom nine.dnom] [zero one two three four five six seven eight nine]' by [zero.dnom one.dnom two.dnom three.dnom four.dnom five.dnom six.dnom seven.dnom eight.dnom nine.dnom];
+} DNOM;";
 tag = frac;
 },
 {
