@@ -170,6 +170,7 @@ lookup uppercaseSharpS {
 #{{
 lookup braceleft_braceleft.liga {
 ignore sub braceleft braceleft' braceleft;
+ignore sub braceleft' braceleft braceleft;
 ignore sub braceleft' braceleft hyphen;
 sub SPC braceleft' by braceleft_braceleft.liga;
 sub braceleft' braceleft by SPC;
@@ -178,6 +179,7 @@ sub braceleft' braceleft by SPC;
 #}}
 lookup braceright_braceright.liga {
 ignore sub braceright braceright' braceright;
+ignore sub braceright' braceright braceright;
 ignore sub hyphen braceright' braceright;
 sub SPC braceright' by braceright_braceright.liga;
 sub braceright' braceright by SPC;
